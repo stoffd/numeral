@@ -1,6 +1,7 @@
 #ifndef CONVERT_ALG_HPP
 #define CONVERT_ALG_HPP
 
+#include <gtest/gtest.h>
 #include  "struct.hpp"
 
 namespace velalg {

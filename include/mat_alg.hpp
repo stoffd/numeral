@@ -2,69 +2,84 @@
 #define MAT_ALG_HPP
 
 
+#include <gtest/gtest.h>
 #include  "struct.hpp"
 
 namespace velalg {
 
+
+	class algo {
+	public:
+		algo(){};
+		virtual ~algo() {};
+
+		virtual short div() =0;
+		virtual short mod() =0;
+	
+	};
+
+	template <typename T>
+	class dec_alg : public algo {
+	public:
+		dec_alg(){};
+		virtual ~dec_alg() {};
+
+		virtual short div() {return 0;};
+		virtual short mod() {return 0;};
+	
+	};
+
+
+	template <typename T>
+	class oct_alg : public algo {
+
+	public:
+		oct_alg (const T value) {};
+		virtual ~oct_alg() {};
+		virtual short div() {return 0;};
+		virtual short mod() {return 0;};
+	
+	};
+
+
+	template <typename T>
 	class mat_alg {
 	public:
-		virtual short get_power() const = 0; 
-		virtual short get_unit() const = 0; 
 
-	};
-
-
-
-	template <typename T>
-	class dec_alg : public mat_alg {
-	public:
-		dec_alg(const T value){
+		mat_alg(const T value, const algo& alg) {
 		
-		};
+		}
 
-
-		virtual short get_power() const {
-
-			return 0;
-		}; 
-
-		virtual short get_unit() const {
-			return 0;
-		}; 
-		virtual ~dec_alg() {};
-	private:
-		T value;
-	
-	};
-
-
-	template <typename T>
-	class oct_alg : public mat_alg {
-
-	public:
-		oct_alg (const T value) {
+		void phase() {
 		
-		};
+		}
 
-		virtual short get_power() const {
-
+		short get_power() const {
 			return 0;
 		}; 
 
-		virtual short get_unit() const {
+		short get_unit() const {
 			return 0;
 		}; 
 
-		virtual ~oct_alg() {};
-
-	private:
-		T value;
-	
 	};
+
+
 
 
 }
 
+//-------------TEST-----------
+//-------------TEST-----------
+//-------------TEST-----------
+
+TEST( mat_algTest, zeroTest ) {
+	velalg::algo* al = new velalg::dec_alg<long>();
+	velalg::mat_alg<long> ma (0, *al);
+	ma.phase();
+	EXPECT_EQ( ma.get_unit(), 0);
+	EXPECT_EQ( ma.get_power(), 0);
+}
 
 
 #endif//MAT_ALG_HPP

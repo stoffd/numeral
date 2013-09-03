@@ -2,6 +2,7 @@
 #define CONVERTER_HPP
 
 
+#include <gtest/gtest.h>
 #include <string>
 #include  "convert_alg.hpp"
 #include  "mat_alg.hpp"
@@ -20,7 +21,7 @@ namespace velalg {
 		d2_string 	power;
 		units 		unit;
 		convert_alg calg;
-		mat_alg		malg;
+		//mat_alg		malg;
 
 	
 	};

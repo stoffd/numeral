@@ -98,69 +98,69 @@
 
 
 //#include <gtest/gtest.h>
-#include <iostream>
-#include <string>
-#include <vector>
-#include <map>
 
 
-namespace vel_data {
+//namespace vel_data {
 
-	enum languages {russian, english};
-	enum genders { masc, fem };
-	enum power_grades { once=0, thous, mill, bill, trill, quad, quint };
+	//enum languages {russian, english};
+	//enum genders { masc, fem };
+	//enum power_grades { once=0, thous, mill, bill, trill, quad, quint };
 
-	typedef std::vector< std::vector <std::string> > d2_string;
-	typedef std::map <genders, d2_string>  units;
+	//typedef std::vector< std::vector <std::string> > d2_string;
+	//typedef std::map <genders, d2_string>  units;
 
-	struct power{
-		genders grade_gender;
-		d2_string names;
-	};
+	//struct power{
+		//genders grade_gender;
+		//d2_string names;
+	//};
 
 
-	class simple_alg {
-	public:
-		simple_alg(){};
-		simple_alg(const languages lang, power& pwr, units& unt ) {
+	//class simple_alg {
+	//public:
+		//simple_alg(){};
+		//simple_alg(const languages lang, power& pwr, units& unt ) {
 		
-		};
+		//};
 
-		short get_one() const { return 1; }
-		power& get_powers() const {};
-		units& get_units() const {};
+		//short get_one() const { return 1; }
+		//power& get_powers() const {};
+		//units& get_units() const {};
 
-	private:
-		power pwr;
-		units unt;
+	//private:
+		//power pwr;
+		//units unt;
 	
-	};
+	//};
 
 
-	template <typename T>
-	class alg_unpack {
+	//template <typename T>
+	//class alg_unpack {
 
-	public:
-		alg_unpack(T& init_alg) {
+	//public:
+		//alg_unpack(T& init_alg) {
 		
-			std::cout<<init_alg.get_one()<<std::endl;
-		};
+			//std::cout<<init_alg.get_one()<<std::endl;
+		//};
 
-		std::string get_unit(){return "ноль";};
-		std::string get_power(){return "ноль";};
-		void set_num(power_grades pwr_names, short unit){};
+		//std::string get_unit(){return "ноль";};
+		//std::string get_power(){return "ноль";};
+		//void set_num(power_grades pwr_names, short unit){};
 
-	private:
-		T init_alg;
-		power pwr;
-		units unt;
+	//private:
+		//T init_alg;
+		//power pwr;
+		//units unt;
 
-	};
+	//};
 
-}
+//}
 
 
-//template <typename T_type, typename T_unpalg, typename T_matalg>
+
+
+
+
+
 //class num_to_str {
 //public:
 	//num_to_str() {
@@ -172,21 +172,25 @@ namespace vel_data {
 //};
 
 
+#include <iostream>
+#include <vector>
+#include <map>
+#include  "./include/converter.hpp"
+
+
+
+
 int main(int argc, char **argv) {
+
+
+
+
+
 	
-	using namespace vel_data;
-	power pwr;
-	units unt;
-	simple_alg sa(russian, pwr, unt);
-
-	alg_unpack<simple_alg> au(sa);
-	//au.set_num();
-	//au.get_unit();
-	//au.get_power();
 
 
-	/*::testing::InitGoogleTest(&argc, argv);*/
-	/*return RUN_ALL_TESTS();*/
+	::testing::InitGoogleTest(&argc, argv);
+	return RUN_ALL_TESTS();
 }
 
 

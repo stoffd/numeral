@@ -7,54 +7,71 @@
 namespace velalg {
 
 
+
 	class convert_alg {
-		virtual short get_convert_power() const = 0; 
-		virtual short get_convert_unit() const = 0; 
+	public:
+		virtual void phrase_base_init(power_numeral_list& pl, unit_numeral_list& ul) =0;
+		virtual std::string get_numeral() =0;
+	
 	};
+//--------------------------
+//--------------------------------
+//---------------------------------
+
+
 
 	class rus_alg : public convert_alg {
+
 	public:
+
 		rus_alg(){
 		
 		};
 
 
-		virtual short get_convert_power() const {
-
-			return 0;
-		}; 
-
-		virtual short get_convert_unit() const {
-			return 0;
-		}; 
-		virtual ~rus_alg() {};
-	private:
-	
-	};
+		virtual void phrase_base_init( 
+				power_numeral_list& pl,
+				unit_numeral_list& ul ) { 
 
 
-	class eng_alg : public convert_alg {
 
-	public:
-		eng_alg () {
+		};
+
+		virtual std::string get_numeral() {
 		
 		};
 
-		virtual short get_convert_power() const {
-
-			return 0;
-		}; 
-
-		virtual short get_convert_unit() const {
-			return 0;
-		}; 
-
-		virtual ~eng_alg() {};
 
 	private:
+
+
 	
 	};
 
+
+
+//--------------------------
+//--------------------------------
+//---------------------------------
+	class convert {
+	public:
+
+		convert() {
+//phrase_base_init
+		
+		};
+
+
+		std::string get_numeral() const {
+		
+		};
+
+	private:
+		convert_alg* conv_alg;
+		power_numeral_list 	pow_list;
+		unit_numeral_list	un_list;
+
+	};
 
 }
 

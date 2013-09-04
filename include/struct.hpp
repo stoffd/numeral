@@ -10,9 +10,9 @@ namespace velalg {
 	enum power_grades { once=0, thous, mill, bill, trill, quad, quint };
 
 	typedef std::vector< std::vector <std::string> > d2_string;
-	typedef std::map <genders, d2_string>  units;
+	typedef std::map <genders, d2_string>  unit_numeral_list;
 
-	struct power{
+	struct power_numeral_list{
 		std::vector<genders> grade_gender;
 		d2_string names;
 	};

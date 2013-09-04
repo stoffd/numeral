@@ -183,6 +183,7 @@
 int main(int argc, char **argv) {
 
 
+	std::cout<<velalg::a_power[1][1]<<std::endl;
 
 	::testing::InitGoogleTest(&argc, argv);
 	return RUN_ALL_TESTS();

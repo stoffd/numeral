@@ -345,14 +345,5 @@ TEST( mat_algTest, test4294967295) {
 }
 
 
-//TEST( mat_algTest, test4294967296) {
-	//velalg::algo* al = new velalg::dec_alg<long>();
-	//velalg::mat_alg<long> ma (0, *al);
-	//ma.phase();
-	//EXPECT_EQ( ma.get_unit(), 0);
-	//EXPECT_EQ( ma.get_power(), 0);
-//}
-
-
 
 #endif//MAT_ALG_HPP

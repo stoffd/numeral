@@ -101,7 +101,7 @@ namespace velalg {
 		};
 
 		virtual std::string get_numeral(const short power, const short unit, const short grade) const {
-			return "ничего";
+			return (std::string)("ничего");
 		};
 
 		~rus_alg(){};
@@ -133,7 +133,7 @@ namespace velalg {
 
 
 		std::string get_numeral(const short power, const short unit, const short grade) const{
-			conv_alg->get_numeral(power, unit, grade);
+			return conv_alg->get_numeral(power, unit, grade);
 		};
 
 
@@ -152,6 +152,7 @@ TEST( convert_algTest, testone) {
 	std::auto_ptr<velalg::convert_alg> al_ru (new velalg::rus_alg() );
 	velalg::convert cnvrt (*al_ru.get() );
 	
+	std::cout<<cnvrt.get_numeral(0,0,0)<<std::endl;
 	ASSERT_STREQ( (cnvrt.get_numeral(0,0,0)).c_str(), "ноль" );
 	ASSERT_STREQ( (cnvrt.get_numeral(1,3,1)).c_str(), "тридцать " );
 

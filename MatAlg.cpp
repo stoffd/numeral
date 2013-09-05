@@ -13,6 +13,7 @@ namespace velalg {
 
 
 
+//проверка на кратность
 	DecAlg::DecAlg(): 
 		Algo(10,1000) {};
 
@@ -24,22 +25,28 @@ namespace velalg {
 
 	MatAlg::MatAlg(const long value, Algo& alg) {
 			this->alg=&alg;
-			power=-1;
+			power=0;
 			unit=0;
 			unitValue=0;
 			powerDivCounter=1;
-			unitDivCounter=1;
+			unitDivCounter=0;
 
 			if (value < 0) {
 				minus=true;
 			}
 
 			this->value=abs(value);
+			init();
 		}
 
+	void MatAlg::init() {
+		unitValue=value%(alg->powerDivisor);
+		value=value/(alg->powerDivisor);
+	}
 
 
-	void MatAlg::phase() {
+
+	void MatAlg::setPowerAndUnit() {
 
 		if ( (value == 0) && (unitValue == 0) ) {
 			power=0;
@@ -48,20 +55,19 @@ namespace velalg {
 		}
 
 
-		if (unitValue == 0) {
-			unitDivCounter=1;
+		if ( pow(alg->unitDivisor, unitDivCounter) == (alg->powerDivisor)  ) {
+
+			unitDivCounter=0;
 			power++;
 			unitValue=value%(alg->powerDivisor);
 			value=value/(alg->powerDivisor);
-		}
+		} 
 
-		unit=unitValue%(long) (( pow ( (alg->unitDivisor), unitDivCounter ) ));
-		unitValue/=( pow ( (alg->unitDivisor), unitDivCounter ) );
+		unit=unitValue%(alg->unitDivisor);
+		unitValue/=(alg->unitDivisor);
+		unitDivCounter++;
 
 	}
-
-
-		
 
 
 }
@@ -74,9 +80,9 @@ TEST( MatAlgTest, zeroTest ) {
 
 	std::auto_ptr<velalg::Algo> alDec (new velalg::DecAlg() );
 	velalg::MatAlg maDec (0, *alDec.get() );
-	maDec.phase();
-	maDec.phase();
-	maDec.phase();
+	maDec.setPowerAndUnit();
+	maDec.setPowerAndUnit();
+	maDec.setPowerAndUnit();
 
 	EXPECT_EQ( maDec.getUnit(), 0);
 	EXPECT_EQ( maDec.getPower(), 0);
@@ -86,9 +92,9 @@ TEST( MatAlgTest, zeroTest ) {
 	velalg::MatAlg maOct (0, *alOct.get() );
 
 
-	maOct.phase();
-	maOct.phase();
-	maOct.phase();
+	maOct.setPowerAndUnit();
+	maOct.setPowerAndUnit();
+	maOct.setPowerAndUnit();
 
 
 	EXPECT_EQ( maOct.getUnit(), 0);
@@ -101,7 +107,7 @@ TEST( MatAlgTest, zeroTest ) {
 TEST( MatAlgTest, test1) {
 	std::auto_ptr<velalg::Algo> alDec (new velalg::DecAlg() );
 	velalg::MatAlg maDec (1, *alDec.get() );
-	maDec.phase();
+	maDec.setPowerAndUnit();
 
 	EXPECT_EQ( maDec.getUnit(), 1);
 	EXPECT_EQ( maDec.getPower(), 0);
@@ -111,7 +117,7 @@ TEST( MatAlgTest, test1) {
 	velalg::MatAlg maOct (1, *alOct.get() );
 
 
-	maOct.phase();
+	maOct.setPowerAndUnit();
 
 	EXPECT_EQ( maOct.getUnit(), 1);
 	EXPECT_EQ( maOct.getPower(), 0);
@@ -126,19 +132,19 @@ TEST( MatAlgTest, test_is_less_zero) {
 
 	ASSERT_TRUE (maDec.isLessZero());
 
-	maDec.phase();
+	maDec.setPowerAndUnit();
 	EXPECT_EQ( maDec.getUnit(), 4);
 	EXPECT_EQ( maDec.getPower(), 0);
 
-	maDec.phase();
+	maDec.setPowerAndUnit();
 	EXPECT_EQ( maDec.getUnit(), 3);
 	EXPECT_EQ( maDec.getPower(), 0);
 
-	maDec.phase();
+	maDec.setPowerAndUnit();
 	EXPECT_EQ( maDec.getUnit(), 2);
 	EXPECT_EQ( maDec.getPower(), 0);
 
-	maDec.phase();
+	maDec.setPowerAndUnit();
 	EXPECT_EQ( maDec.getUnit(), 1);
 	EXPECT_EQ( maDec.getPower(), 1);
 
@@ -150,19 +156,19 @@ TEST( MatAlgTest, test_is_less_zero) {
 
 	ASSERT_TRUE (maOct.isLessZero());
 
-	maOct.phase();
+	maOct.setPowerAndUnit();
 	EXPECT_EQ( maOct.getUnit(), 2);
 	EXPECT_EQ( maOct.getPower(), 0);
 
-	maOct.phase();
+	maOct.setPowerAndUnit();
 	EXPECT_EQ( maOct.getUnit(), 2);
 	EXPECT_EQ( maOct.getPower(), 0);
 
-	maOct.phase();
+	maOct.setPowerAndUnit();
 	EXPECT_EQ( maOct.getUnit(), 3);
 	EXPECT_EQ( maOct.getPower(), 0);
 
-	maOct.phase();
+	maOct.setPowerAndUnit();
 	EXPECT_EQ( maOct.getUnit(), 2);
 	EXPECT_EQ( maOct.getPower(), 1);
 
@@ -174,19 +180,29 @@ TEST( MatAlgTest, test123000) {
 	velalg::MatAlg maDec (123000, *alDec.get() );
 
 
-	maDec.phase();
+
+
+	maDec.setPowerAndUnit();
 	EXPECT_EQ( maDec.getUnit(), 0);
 	EXPECT_EQ( maDec.getPower(), 0);
 
-	maDec.phase();
+	maDec.setPowerAndUnit();
+	EXPECT_EQ( maDec.getUnit(), 0);
+	EXPECT_EQ( maDec.getPower(), 0);
+
+	maDec.setPowerAndUnit();
+	EXPECT_EQ( maDec.getUnit(), 0);
+	EXPECT_EQ( maDec.getPower(), 0);
+
+	maDec.setPowerAndUnit();
 	EXPECT_EQ( maDec.getUnit(), 3);
 	EXPECT_EQ( maDec.getPower(), 1);
 
-	maDec.phase();
+	maDec.setPowerAndUnit();
 	EXPECT_EQ( maDec.getUnit(), 2);
 	EXPECT_EQ( maDec.getPower(), 1);
 
-	maDec.phase();
+	maDec.setPowerAndUnit();
 	EXPECT_EQ( maDec.getUnit(), 1);
 	EXPECT_EQ( maDec.getPower(), 1);
 
@@ -197,29 +213,29 @@ TEST( MatAlgTest, test123102) {
 	velalg::MatAlg maDec (123102, *alDec.get() );
 
 
-	maDec.phase();
+	maDec.setPowerAndUnit();
 	EXPECT_EQ( maDec.getUnit(), 2);
 	EXPECT_EQ( maDec.getPower(), 0);
 
-	maDec.phase();
+	maDec.setPowerAndUnit();
 	EXPECT_EQ( maDec.getUnit(), 0);
 	EXPECT_EQ( maDec.getPower(), 0);
 
-	maDec.phase();
+	maDec.setPowerAndUnit();
 	EXPECT_EQ( maDec.getUnit(), 1);
 	EXPECT_EQ( maDec.getPower(), 0);
 
-	maDec.phase();
+	maDec.setPowerAndUnit();
 	EXPECT_EQ( maDec.getUnit(), 3);
 	EXPECT_EQ( maDec.getPower(), 1);
 
 
-	maDec.phase();
+	maDec.setPowerAndUnit();
 	EXPECT_EQ( maDec.getUnit(), 2);
 	EXPECT_EQ( maDec.getPower(), 1);
 
 
-	maDec.phase();
+	maDec.setPowerAndUnit();
 	EXPECT_EQ( maDec.getUnit(), 1);
 	EXPECT_EQ( maDec.getPower(), 1);
 
@@ -235,34 +251,34 @@ TEST( MatAlgTest, test4294967295) {
 	std::auto_ptr<velalg::Algo> alDec (new velalg::DecAlg() );
 	velalg::MatAlg maDec (2147483647, *alDec.get() );
 
-	maDec.phase();
+	maDec.setPowerAndUnit();
 	EXPECT_EQ( maDec.getUnit(), 7);
 	EXPECT_EQ( maDec.getPower(), 0);
-	maDec.phase();
+	maDec.setPowerAndUnit();
 	EXPECT_EQ( maDec.getUnit(), 4);
 	EXPECT_EQ( maDec.getPower(), 0);
-	maDec.phase();
+	maDec.setPowerAndUnit();
 	EXPECT_EQ( maDec.getUnit(), 6);
 	EXPECT_EQ( maDec.getPower(), 0);
-	maDec.phase();
+	maDec.setPowerAndUnit();
 	EXPECT_EQ( maDec.getUnit(), 3);
 	EXPECT_EQ( maDec.getPower(), 1);
-	maDec.phase();
+	maDec.setPowerAndUnit();
 	EXPECT_EQ( maDec.getUnit(), 8);
 	EXPECT_EQ( maDec.getPower(), 1);
-	maDec.phase();
+	maDec.setPowerAndUnit();
 	EXPECT_EQ( maDec.getUnit(), 4);
 	EXPECT_EQ( maDec.getPower(), 1);
-	maDec.phase();
+	maDec.setPowerAndUnit();
 	EXPECT_EQ( maDec.getUnit(), 7);
 	EXPECT_EQ( maDec.getPower(), 2);
-	maDec.phase();
+	maDec.setPowerAndUnit();
 	EXPECT_EQ( maDec.getUnit(), 4);
 	EXPECT_EQ( maDec.getPower(), 2);
-	maDec.phase();
+	maDec.setPowerAndUnit();
 	EXPECT_EQ( maDec.getUnit(), 1);
 	EXPECT_EQ( maDec.getPower(), 2);
-	maDec.phase();
+	maDec.setPowerAndUnit();
 	EXPECT_EQ( maDec.getUnit(), 2);
 	EXPECT_EQ( maDec.getPower(), 3);
 
@@ -272,37 +288,37 @@ TEST( MatAlgTest, test4294967295) {
 	velalg::MatAlg maOct (2147483647, *alOct.get() );
 
 
-	maOct.phase();
+	maOct.setPowerAndUnit();
 	EXPECT_EQ( maOct.getUnit(), 7);
 	EXPECT_EQ( maOct.getPower(), 0);
-	maOct.phase();
+	maOct.setPowerAndUnit();
 	EXPECT_EQ( maOct.getUnit(), 7);
 	EXPECT_EQ( maOct.getPower(), 0);
-	maOct.phase();
+	maOct.setPowerAndUnit();
 	EXPECT_EQ( maOct.getUnit(), 7);
 	EXPECT_EQ( maOct.getPower(), 0);
-	maOct.phase();
+	maOct.setPowerAndUnit();
 	EXPECT_EQ( maOct.getUnit(), 7);
 	EXPECT_EQ( maOct.getPower(), 1);
-	maOct.phase();
+	maOct.setPowerAndUnit();
 	EXPECT_EQ( maOct.getUnit(), 7);
 	EXPECT_EQ( maOct.getPower(), 1);
-	maOct.phase();
+	maOct.setPowerAndUnit();
 	EXPECT_EQ( maOct.getUnit(), 7);
 	EXPECT_EQ( maOct.getPower(), 1);
-	maOct.phase();
+	maOct.setPowerAndUnit();
 	EXPECT_EQ( maOct.getUnit(), 7);
 	EXPECT_EQ( maOct.getPower(), 2);
-	maOct.phase();
+	maOct.setPowerAndUnit();
 	EXPECT_EQ( maOct.getUnit(), 7);
 	EXPECT_EQ( maOct.getPower(), 2);
-	maOct.phase();
+	maOct.setPowerAndUnit();
 	EXPECT_EQ( maOct.getUnit(), 7);
 	EXPECT_EQ( maOct.getPower(), 2);
-	maOct.phase();
+	maOct.setPowerAndUnit();
 	EXPECT_EQ( maOct.getUnit(), 7);
 	EXPECT_EQ( maOct.getPower(), 3);
-	maOct.phase();
+	maOct.setPowerAndUnit();
 	EXPECT_EQ( maOct.getUnit(), 1);
 	EXPECT_EQ( maOct.getPower(), 3);
 

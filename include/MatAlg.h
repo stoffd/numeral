@@ -32,8 +32,9 @@ namespace velalg {
 	public:
 
 		MatAlg(const long value, Algo& alg); 
+		void init();
 
-		void phase(); 
+		void setPowerAndUnit(); 
 
 		inline bool isLessZero() const {
 			return minus;

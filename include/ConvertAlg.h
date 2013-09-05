@@ -11,8 +11,25 @@ namespace velalg {
 
 	class ConvertAlg {
 	public:
-		virtual void phraseBaseInit(PowerNumeralList& pl, UnitNumeralList& ul) =0;
-		virtual std::string getNumeral(const short power, const short unit, const short grade) const =0;
+		virtual void phraseBaseInit() =0;
+		virtual std::string getNumeral( const short unit) =0;
+
+
+	protected:
+
+
+		PowerNumeralList 	powList;
+		UnitNumeralList		unList;
+
+		short unitCounter;
+		short powerCounter;
+		short memCell;
+
+		//struct MemCell {
+			//short val;
+			//bool isFree;
+		//} cell;
+
 	};
 //--------------------------
 //--------------------------------
@@ -24,16 +41,16 @@ namespace velalg {
 
 	public:
 
-		RusAlg(){};
-		virtual void phraseBaseInit( 
-				PowerNumeralList& pl,
-				UnitNumeralList& ul );
+		RusAlg();
+		virtual void phraseBaseInit();
 
-		virtual std::string getNumeral(const short power, const short unit, const short grade) const;
-		~RusAlg(){};
+		virtual std::string getNumeral( short unit);
+
+		virtual	~RusAlg(){};
+
 
 	private:
-
+		static const short maxGradeLevel = 3;
 	
 	};
 
@@ -48,13 +65,11 @@ namespace velalg {
 		Convert(ConvertAlg& convAlg);
 
 		void init();
-		std::string getNumeral(const short power, const short unit, const short grade) const;
+		std::string getNumeral(const short unit) const;
 
 
 	private:
 		ConvertAlg* convAlg;
-		PowerNumeralList 	powList;
-		UnitNumeralList	unList;
 
 	};
 

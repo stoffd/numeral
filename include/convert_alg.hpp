@@ -152,8 +152,8 @@ TEST( convert_algTest, testone) {
 	std::auto_ptr<velalg::convert_alg> al_ru (new velalg::rus_alg() );
 	velalg::convert cnvrt (*al_ru.get() );
 	
-	ASSERT_STREQ( cnvrt.get_numeral(0,0,0), "ноль" );
-	ASSERT_STREQ( cnvrt.get_numeral(1,3,1), "тридцать " );
+	ASSERT_STREQ( (cnvrt.get_numeral(0,0,0)).c_str(), "ноль" );
+	ASSERT_STREQ( (cnvrt.get_numeral(1,3,1)).c_str(), "тридцать " );
 
 }
 

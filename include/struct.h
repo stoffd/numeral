@@ -2,6 +2,7 @@
 #define STRUCT_HPP
 
 
+#include <map>
 
 namespace velalg {
 
@@ -9,14 +10,14 @@ namespace velalg {
 	enum genders { MASCUL, FEM };
 	enum power_grades { once=0, thous, mill, bill, trill, quad, quint };
 
-	typedef std::vector< std::vector <std::string> > d2_string;
-	typedef std::map <genders, d2_string>  unit_numeral_list;
+	typedef std::vector< std::vector <std::string> > D2String;
+	typedef std::map <genders, D2String>  UnitNumeralList;
 
-	struct power_numeral_struct{
+	struct PowerNumeralStruct{
 		genders grade_gender;
 		std::vector<std::string> names;
 	};
-	typedef std::vector<power_numeral_struct> power_numeral_list;
+	typedef std::vector<PowerNumeralStruct> PowerNumeralList;
 
 
 	//std::string a_power[][3]={ 

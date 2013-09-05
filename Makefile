@@ -1,10 +1,17 @@
 CC=g++
 PROGRAM_NAME=numeral
 
-$(PROGRAM_NAME): main.o #main_section
+$(PROGRAM_NAME): main.o MatAlg.o ConvertAlg.o 
 	$(CC) -o $@ $^ -L/usr/lib/gtest -lpthread  -lgtest
 
 main.o: main.cpp
+	$(CC) -c -g $^
+
+
+MatAlg.o: MatAlg.cpp 
+	$(CC) -c -g $^
+
+ConvertAlg.o: ConvertAlg.cpp 
 	$(CC) -c -g $^
 
 #auto_trgt

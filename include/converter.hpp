@@ -4,6 +4,7 @@
 
 #include <gtest/gtest.h>
 #include <string>
+#include <algorithm>
 #include  "convert_alg.hpp"
 #include  "mat_alg.hpp"
 

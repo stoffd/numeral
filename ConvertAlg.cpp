@@ -13,17 +13,22 @@ namespace velalg {
 
 		PowerNumeralList::iterator nlIt;
 
+
+		v1.push_back(""); v1.push_back(""); v1.push_back("");
+		powList.push_back( ( struct PowerNumeralStruct) {MASCUL,v1} );
+		v1.clear();
+
 		v1.push_back("тысяча "); v1.push_back("тысячи "); v1.push_back("тысяч ");
 		powList.push_back( ( struct PowerNumeralStruct) {FEM,v1} );
 		v1.clear();
 
 
 		v1.push_back("миллион "); v1.push_back("миллиона "); v1.push_back("миллионов ");
-		powList.push_back( ( struct PowerNumeralStruct) {FEM,v1} );
+		powList.push_back( ( struct PowerNumeralStruct) {MASCUL,v1} );
 		v1.clear();
 
 		v1.push_back("миллиард "); v1.push_back("миллиарда "); v1.push_back("миллиардов ");
-		powList.push_back( ( struct PowerNumeralStruct) {FEM,v1} );
+		powList.push_back( ( struct PowerNumeralStruct) {MASCUL,v1} );
 		v1.clear();
 
 
@@ -92,39 +97,42 @@ namespace velalg {
 
 		switch (unitCounter) {
 
-		case 0:
-			memCell = value;
-			break;
+			case 0:
+				memCell = value;
+				break;
 
-		case 1:
-			if (value == 1) {
-				returnedString = *( ( ( vvIt + 1 )->begin() ) + memCell - 1);
-				memCell = 0;
-			} else if ( (value == 0) && ( memCell != 0 ) ){
-				returnedString = *( ( vvIt->begin() )+memCell - 1 );
-				memCell = 0;
-			} else if ( ( value != 0 ) && ( memCell == 0 ) ) {
-				returnedString = *( ( ( vvIt + 2 )->begin() ) + value - 1 );
-			} else if ( ( value != 0 ) && ( memCell != 0 ) ) {
-				returnedString =  *( ( ( vvIt + 2 )->begin() )+value - 1 );
-				returnedString+=  *( ( vvIt->begin() )+memCell - 1 );
-				memCell = 0;
-			}
-			break;
+			case 1:
+				if (value == 1) {
+					returnedString = *( ( ( vvIt + 1 )->begin() ) + memCell - 1);
+					memCell = 0;
+//
+				} else if ( (value == 0) && ( memCell != 0 ) ){
+					returnedString = *( ( vvIt->begin() )+memCell - 1 );
+					memCell = 0;
+					//
+				} else if ( ( value != 0 ) && ( memCell == 0 ) ) {
+					returnedString = *( ( ( vvIt + 2 )->begin() ) + value - 1 );
+				} else if ( ( value != 0 ) && ( memCell != 0 ) ) {
+					returnedString =  *( ( ( vvIt + 2 )->begin() )+value - 1 );
+					returnedString+=  *( ( vvIt->begin() )+memCell - 1 );
+					memCell = 0;
+					//
+				}
+				break;
 
-		case 2:
-			if ( (value == 0) && ( memCell != 0 ) ) {
-				returnedString = *( ( ( vvIt + 2 )->begin() ) + memCell - 1);
-			} else if ( (value == 0) && ( memCell == 0 ) ) {
-				returnedString = "";
-			} else {
-				returnedString = *( ( ( vvIt + 3 )->begin() ) + value - 1);
-			}
+			case 2:
+				if ( (value == 0) && ( memCell != 0 ) ) {
+					returnedString = *( ( ( vvIt + 2 )->begin() ) + memCell - 1);
+				} else if ( (value == 0) && ( memCell == 0 ) ) {
+					returnedString = "";
+				} else {
+					returnedString = *( ( ( vvIt + 3 )->begin() ) + value - 1);
+				}
 
-			break;
-		
-		default:
-			break;
+				break;
+			
+			default:
+				break;
 		
 		}
 
@@ -186,6 +194,37 @@ namespace velalg {
 
 
 
+
+TEST( ConvertAlgTest, minTriplet ) {
+
+	std::string tempStr;
+
+	std::auto_ptr<velalg::ConvertAlg> alRu (new velalg::RusAlg() );
+	velalg::Convert cnvrt (*alRu.get() );
+	
+
+	tempStr = cnvrt.getNumeral(1); 
+	std::cout<<tempStr<<std::endl;
+	EXPECT_STREQ(tempStr.c_str(),"");
+
+	tempStr = cnvrt.getNumeral(2); 
+	std::cout<<tempStr<<std::endl;
+	EXPECT_STREQ(tempStr.c_str(),"двадцать один");
+
+	tempStr = cnvrt.getNumeral(1); 
+	std::cout<<tempStr<<std::endl;
+	EXPECT_STREQ( tempStr.c_str() ,"сто " );
+
+
+	tempStr = cnvrt.getNumeral(1); 
+	std::cout<<tempStr<<std::endl;
+	EXPECT_STREQ(tempStr.c_str(),"");
+
+	tempStr = cnvrt.getNumeral(0); 
+	std::cout<<tempStr<<std::endl;
+	EXPECT_STREQ(tempStr.c_str(),"одна тысяча");
+
+}
 
 
 TEST( ConvertAlgTest, minTriplet ) {

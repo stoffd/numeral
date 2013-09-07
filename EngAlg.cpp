@@ -71,7 +71,8 @@ namespace velalg {
 	EngAlg::EngAlg(){
 		//cell.isFree = true;
 		powerWasWrite = false;
-		memCell = 0;
+		memCell1 = 0;
+		memCell2 = 0;
 		unitCounter = 0;
 		powerCounter = 0;
 	};
@@ -89,49 +90,48 @@ namespace velalg {
 		switch (unitCounter) {
 
 			case 0:
-				memCell = value;
+				memCell1 = value;
 				break;
 
 			case 1:
 				if (value == 1) {
 
-					returnedString = *( ( ( vvIt + 1 )->begin() ) + memCell - 1);
-					//returnedString += definePower(powerCounter); 
-					memCell = 0;
+					returnedString = *( ( ( vvIt + 1 )->begin() ) + memCell1 - 1);
+					returnedString += definePower(powerCounter); 
 
-				} else if ( (value == 0) && ( memCell != 0 ) ){
+				} else if ( (value == 0) && ( memCell1 != 0 ) ){
 
-					returnedString = *( ( vvIt->begin() ) + memCell - 1 );
-					//returnedString += definePower(powerCounter); 
-					memCell = 0;
+					returnedString = *( ( vvIt->begin() ) + memCell1 - 1 );
+					returnedString += definePower(powerCounter); 
 
-				} else if ( ( value != 0 ) && ( memCell == 0 ) ) {
+				} else if ( ( value != 0 ) && ( memCell1 == 0 ) ) {
 
 					returnedString += *( ( ( vvIt + 2 )->begin() ) + value - 1 );
 					returnedString.replace( returnedString.find("-"), 1," ");
-					//returnedString += definePower(powerCounter); 
+					returnedString += definePower(powerCounter); 
 
-				} else if ( ( value != 0 ) && ( memCell != 0 ) ) {
+				} else if ( ( value != 0 ) && ( memCell1 != 0 ) ) {
 
 					returnedString =  *( ( ( vvIt + 2 )->begin() ) + value - 1 );
-					returnedString+=  *( ( vvIt->begin() ) + memCell - 1 );
-					//returnedString += definePower(powerCounter); 
+					returnedString+=  *( ( vvIt->begin() ) + memCell1 - 1 );
+					returnedString += definePower(powerCounter); 
 
-					memCell = 0;
 				}
+					memCell2 = value;
 
 				break;
 
 			case 2:
-				if ( (value == 0) && ( memCell != 0 ) ) {
-					returnedString = *( ( ( vvIt + 2 )->begin() ) + memCell - 1);
-				} else if ( (value == 0) && ( memCell == 0 ) ) {
+				if  (value == 0)  {
 					returnedString = "";
+				} else if ( (value != 0) && ( ( memCell1 == 0 ) || ( memCell2 ==0 ) ) ) {
+					returnedString = *( ( ( vvIt + 3 )->begin() ) + value - 1);
+					if ( powerWasWrite && ( powerCounter == 0 ) )
+						returnedString += "and ";
 				} else {
 					returnedString = *( ( ( vvIt + 3 )->begin() ) + value - 1);
-					//if ( !powerWasWrite )
-						returnedString = "and ";
-						//returnedString += definePower(powerCounter); 
+					if ( !powerWasWrite )
+						returnedString += definePower(powerCounter); 
 				}
 
 				break;
@@ -150,6 +150,8 @@ namespace velalg {
 			powerWasWrite = false; 
 			powerCounter++;
 			unitCounter = 0;
+			memCell1 = 0;
+			memCell2 = 0;
 		}
 
 

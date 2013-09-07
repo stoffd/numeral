@@ -105,13 +105,11 @@ namespace velalg {
 
 					returnedString = *( ( ( vvIt + 1 )->begin() ) + memCell - 1);
 					returnedString += definePower( MORE_AS_FOUR, powerCounter );
-					memCell = 0;
 
 				} else if ( (value == 0) && ( memCell != 0 ) ){
 
 					returnedString = *( ( vvIt->begin() ) + memCell - 1 );
 					returnedString += definePower( memCell, powerCounter );
-					memCell = 0;
 
 				} else if ( ( value != 0 ) && ( memCell == 0 ) ) {
 
@@ -124,14 +122,14 @@ namespace velalg {
 					returnedString+=  *( ( vvIt->begin() ) + memCell - 1 );
 					returnedString += definePower( memCell, powerCounter );
 
-					memCell = 0;
 				}
+					memCell = value;
 
 				break;
 
 			case 2:
-				if ( (value == 0) && ( memCell != 0 ) ) {
-					returnedString = *( ( ( vvIt + 2 )->begin() ) + memCell - 1);
+				if ( (value == 0) )/*&& ( memCell != 0 ) )*/ {
+					//returnedString = *( ( ( vvIt + 2 )->begin() ) + memCell - 1);
 				} else if ( (value == 0) && ( memCell == 0 ) ) {
 					returnedString = "";
 				} else {
@@ -156,6 +154,7 @@ namespace velalg {
 			powerWasWrite = false; 
 			powerCounter++;
 			unitCounter = 0;
+			memCell = 0;
 		}
 
 
@@ -165,7 +164,7 @@ namespace velalg {
 
 
 
-	std::string RusAlg::definePower( const short power, const short value ) {
+	std::string RusAlg::definePower( const short value, const short power) {
 
 		D2String::iterator vvItPow = powList.begin();
 		short grammarCase=0;

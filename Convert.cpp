@@ -30,8 +30,7 @@ namespace velalg {
 //---------------------------------
 
 
-
-TEST( ConvertAlgTest, hundreedAndDecEng) {
+TEST( ConvertAlgTest, millionEng) {
 
 	std::string tempStr;
 
@@ -42,16 +41,39 @@ TEST( ConvertAlgTest, hundreedAndDecEng) {
 	tempStr = cnvrt.getNumeral(0); 
 	EXPECT_STREQ(tempStr.c_str(),"");
 
-	tempStr = cnvrt.getNumeral(8); 
-	EXPECT_STREQ( tempStr.c_str() ,"and eighty " );
+	tempStr = cnvrt.getNumeral(2); 
+	EXPECT_STREQ( tempStr.c_str() ,"twenty " );
+
+	tempStr = cnvrt.getNumeral(1); 
+	EXPECT_STREQ(tempStr.c_str(),"one hundred and ");
+
+
+	tempStr = cnvrt.getNumeral(0); 
+	EXPECT_STREQ(tempStr.c_str(),"");
+
+	tempStr = cnvrt.getNumeral(2); 
+	EXPECT_STREQ(tempStr.c_str(),"twenty thousand ");
 
 	tempStr = cnvrt.getNumeral(3); 
 	EXPECT_STREQ(tempStr.c_str(),"three hundred ");
 
+	tempStr = cnvrt.getNumeral(1); 
+	EXPECT_STREQ(tempStr.c_str(),"");
+
+	tempStr = cnvrt.getNumeral(0); 
+	EXPECT_STREQ(tempStr.c_str(),"one million ");
+
+	tempStr = cnvrt.getNumeral(0); 
+	EXPECT_STREQ(tempStr.c_str(),"");
+
+
 }
 
 
-TEST( ConvertAlgTest, hundreedAndOnceEng) {
+
+
+
+TEST( ConvertAlgTest, hundredAndOnceEng) {
 
 	std::string tempStr;
 
@@ -63,12 +85,36 @@ TEST( ConvertAlgTest, hundreedAndOnceEng) {
 	EXPECT_STREQ(tempStr.c_str(),"");
 
 	tempStr = cnvrt.getNumeral(0); 
-	EXPECT_STREQ( tempStr.c_str() ,"and two " );
+	EXPECT_STREQ( tempStr.c_str() ,"two " );
 
 	tempStr = cnvrt.getNumeral(3); 
-	EXPECT_STREQ(tempStr.c_str(),"three hundred ");
+	EXPECT_STREQ(tempStr.c_str(),"three hundred and ");
 
 }
+
+
+
+
+TEST( ConvertAlgTest, hundredAndDecEng) {
+
+	std::string tempStr;
+
+	std::auto_ptr<velalg::ConvertAlg> alEng (new velalg::EngAlg() );
+	velalg::Convert cnvrt (*alEng.get() );
+	
+
+	tempStr = cnvrt.getNumeral(0); 
+	EXPECT_STREQ(tempStr.c_str(),"");
+
+	tempStr = cnvrt.getNumeral(8); 
+	EXPECT_STREQ( tempStr.c_str() ,"eighty " );
+
+	tempStr = cnvrt.getNumeral(4); 
+	EXPECT_STREQ(tempStr.c_str(),"four hundred and ");
+
+}
+
+
 
 
 
@@ -157,7 +203,7 @@ TEST( ConvertAlgTest, decWithEng) {
 
 
 
-TEST( ConvertAlgTest, hundreedEng) {
+TEST( ConvertAlgTest, hundredEng) {
 
 	std::string tempStr;
 

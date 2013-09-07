@@ -24,7 +24,6 @@ namespace velalg {
 
 		short unitCounter;
 		short powerCounter;
-		short memCell;
 
 		//struct MemCell {
 			//short val;
@@ -52,6 +51,7 @@ namespace velalg {
 
 	private:
 		bool powerWasWrite;
+		short memCell;
 		std::string definePower( const short value, const short power ); 
 		static const short maxGradeLevel = 3;
 		static const short MORE_AS_FOUR = 5;
@@ -81,6 +81,8 @@ namespace velalg {
 
 	private:
 		bool powerWasWrite;
+		short memCell1;
+		short memCell2;
 		std::string definePower( const short power ); 
 		static const short maxGradeLevel = 3;
 	

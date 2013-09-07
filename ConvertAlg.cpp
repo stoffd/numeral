@@ -11,24 +11,24 @@ namespace velalg {
 		std::vector<std::string> v1;
 		std::vector<std::string>::iterator it;
 
-		PowerNumeralList::iterator nlIt;
+		D2String::iterator nlIt;
 
 
 		v1.push_back(""); v1.push_back(""); v1.push_back("");
-		powList.push_back( ( struct PowerNumeralStruct) {MASCUL,v1} );
+		powList.push_back(v1);
 		v1.clear();
 
 		v1.push_back("тысяча "); v1.push_back("тысячи "); v1.push_back("тысяч ");
-		powList.push_back( ( struct PowerNumeralStruct) {FEM,v1} );
+		powList.push_back(v1);
 		v1.clear();
 
 
 		v1.push_back("миллион "); v1.push_back("миллиона "); v1.push_back("миллионов ");
-		powList.push_back( ( struct PowerNumeralStruct) {MASCUL,v1} );
+		powList.push_back(v1);
 		v1.clear();
 
 		v1.push_back("миллиард "); v1.push_back("миллиарда "); v1.push_back("миллиардов ");
-		powList.push_back( ( struct PowerNumeralStruct) {MASCUL,v1} );
+		powList.push_back(v1);
 		v1.clear();
 
 
@@ -81,10 +81,13 @@ namespace velalg {
 
 	RusAlg::RusAlg(){
 		//cell.isFree = true;
+		powerWasWrite = false;
 		memCell = 0;
 		unitCounter = 0;
 		powerCounter = 0;
 	};
+
+
 
 	std::string RusAlg::getNumeral( const short value ) {
 
@@ -103,21 +106,31 @@ namespace velalg {
 
 			case 1:
 				if (value == 1) {
+
 					returnedString = *( ( ( vvIt + 1 )->begin() ) + memCell - 1);
+					returnedString += definePower( MORE_AS_FOUR, powerCounter );
 					memCell = 0;
-//
+
 				} else if ( (value == 0) && ( memCell != 0 ) ){
-					returnedString = *( ( vvIt->begin() )+memCell - 1 );
+
+					returnedString = *( ( vvIt->begin() ) + memCell - 1 );
+					returnedString += definePower( memCell, powerCounter );
 					memCell = 0;
-					//
+
 				} else if ( ( value != 0 ) && ( memCell == 0 ) ) {
+
 					returnedString = *( ( ( vvIt + 2 )->begin() ) + value - 1 );
+					returnedString += definePower( MORE_AS_FOUR, powerCounter );
+
 				} else if ( ( value != 0 ) && ( memCell != 0 ) ) {
-					returnedString =  *( ( ( vvIt + 2 )->begin() )+value - 1 );
-					returnedString+=  *( ( vvIt->begin() )+memCell - 1 );
+
+					returnedString =  *( ( ( vvIt + 2 )->begin() ) + value - 1 );
+					returnedString+=  *( ( vvIt->begin() ) + memCell - 1 );
+					returnedString += definePower( memCell, powerCounter );
+
 					memCell = 0;
-					//
 				}
+
 				break;
 
 			case 2:
@@ -127,6 +140,8 @@ namespace velalg {
 					returnedString = "";
 				} else {
 					returnedString = *( ( ( vvIt + 3 )->begin() ) + value - 1);
+					if ( !powerWasWrite )
+						returnedString += definePower( MORE_AS_FOUR, powerCounter );
 				}
 
 				break;
@@ -138,27 +153,11 @@ namespace velalg {
 
 
 
-
-		//if (unitCounter == 0) {
-		//} else {
-			//if ( (unitCounter == 1) && (value == 1) ) {
-
-			//} else if ( value == 0 ) {
-				//return *( (( (unList[gend].begin()) )->begin())+memCell-1);
-			//} else {
-				//if ( memCell != 0 ) {
-					//return *( (( (unList[gend].begin())+unitCounter )->begin())+value+1);
-				
-				//}
-			
-			//}
-		
-		//}
-
-
 		unitCounter++;
 
 		if ( unitCounter == maxGradeLevel ) {
+
+			powerWasWrite = false; 
 			powerCounter++;
 			unitCounter = 0;
 		}
@@ -166,6 +165,40 @@ namespace velalg {
 
 
 		return returnedString; 
+	}
+
+
+
+	std::string RusAlg::definePower( const short value, const short power ) {
+
+		D2String::iterator vvItPow = powList.begin();
+		short grammarCase=0;
+		powerWasWrite = true; 
+
+		switch (value) {
+
+			case 0:
+				throw;
+				break;
+
+			case 1:
+				grammarCase = 0;
+				break;
+
+			case 2:
+			case 3:
+			case 4:
+				grammarCase = 1;
+				break;
+
+			default:
+				grammarCase = 2;
+				break;
+		
+		} 
+
+		return *( ( ( vvItPow + power ) -> begin() ) + grammarCase ); 
+	
 	}
 
 
@@ -195,7 +228,7 @@ namespace velalg {
 
 
 
-TEST( ConvertAlgTest, minTriplet ) {
+TEST( ConvertAlgTest, million ) {
 
 	std::string tempStr;
 
@@ -209,7 +242,76 @@ TEST( ConvertAlgTest, minTriplet ) {
 
 	tempStr = cnvrt.getNumeral(2); 
 	std::cout<<tempStr<<std::endl;
-	EXPECT_STREQ(tempStr.c_str(),"двадцать один");
+	EXPECT_STREQ(tempStr.c_str(),"двадцать один ");
+
+	tempStr = cnvrt.getNumeral(1); 
+	std::cout<<tempStr<<std::endl;
+	EXPECT_STREQ( tempStr.c_str() ,"сто " );
+
+
+	tempStr = cnvrt.getNumeral(1); 
+	std::cout<<tempStr<<std::endl;
+	EXPECT_STREQ(tempStr.c_str(),"");
+
+	tempStr = cnvrt.getNumeral(7); 
+	std::cout<<tempStr<<std::endl;
+	EXPECT_STREQ(tempStr.c_str(),"семьдесят одна тысяча ");
+
+
+	tempStr = cnvrt.getNumeral(8); 
+	std::cout<<tempStr<<std::endl;
+	EXPECT_STREQ(tempStr.c_str(),"восемьсот ");
+
+	tempStr = cnvrt.getNumeral(4); 
+	std::cout<<tempStr<<std::endl;
+	EXPECT_STREQ(tempStr.c_str(),"");
+
+	tempStr = cnvrt.getNumeral(4); 
+	std::cout<<tempStr<<std::endl;
+	EXPECT_STREQ(tempStr.c_str(),"сорок четыре миллиона ");
+
+	tempStr = cnvrt.getNumeral(0); 
+	std::cout<<tempStr<<std::endl;
+	EXPECT_STREQ(tempStr.c_str(),"");
+
+
+	tempStr = cnvrt.getNumeral(1); 
+	std::cout<<tempStr<<std::endl;
+	EXPECT_STREQ(tempStr.c_str(),"");
+
+
+	tempStr = cnvrt.getNumeral(0); 
+	std::cout<<tempStr<<std::endl;
+	EXPECT_STREQ(tempStr.c_str(),"один миллиард ");
+
+	tempStr = cnvrt.getNumeral(0); 
+	std::cout<<tempStr<<std::endl;
+	EXPECT_STREQ(tempStr.c_str(),"");
+
+
+}
+
+
+
+
+
+
+
+TEST( ConvertAlgTest, hundred ) {
+
+	std::string tempStr;
+
+	std::auto_ptr<velalg::ConvertAlg> alRu (new velalg::RusAlg() );
+	velalg::Convert cnvrt (*alRu.get() );
+	
+
+	tempStr = cnvrt.getNumeral(1); 
+	std::cout<<tempStr<<std::endl;
+	EXPECT_STREQ(tempStr.c_str(),"");
+
+	tempStr = cnvrt.getNumeral(2); 
+	std::cout<<tempStr<<std::endl;
+	EXPECT_STREQ(tempStr.c_str(),"двадцать один ");
 
 	tempStr = cnvrt.getNumeral(1); 
 	std::cout<<tempStr<<std::endl;
@@ -222,7 +324,7 @@ TEST( ConvertAlgTest, minTriplet ) {
 
 	tempStr = cnvrt.getNumeral(0); 
 	std::cout<<tempStr<<std::endl;
-	EXPECT_STREQ(tempStr.c_str(),"одна тысяча");
+	EXPECT_STREQ(tempStr.c_str(),"одна тысяча ");
 
 }
 

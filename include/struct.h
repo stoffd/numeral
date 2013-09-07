@@ -13,11 +13,11 @@ namespace velalg {
 	typedef std::vector< std::vector <std::string> > D2String;
 	typedef std::map <genders, D2String>  UnitNumeralList;
 
-	struct PowerNumeralStruct{
-		genders grade_gender;
-		std::vector<std::string> names;
-	};
-	typedef std::vector<PowerNumeralStruct> PowerNumeralList;
+	//struct PowerNumeralStruct{
+		//genders grade_gender;
+		//std::vector<std::string> names;
+	//};
+	//typedef std::vector<PowerNumeralStruct> PowerNumeralList;
 
 
 	//std::string a_power[][3]={ 

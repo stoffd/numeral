@@ -18,7 +18,8 @@ namespace velalg {
 	protected:
 
 
-		PowerNumeralList 	powList;
+		//PowerNumeralList 	powList;
+		D2String			powList;
 		UnitNumeralList		unList;
 
 		short unitCounter;
@@ -50,7 +51,10 @@ namespace velalg {
 
 
 	private:
+		bool powerWasWrite;
+		std::string definePower( const short value, const short power ); 
 		static const short maxGradeLevel = 3;
+		static const short MORE_AS_FOUR = 5;
 	
 	};
 

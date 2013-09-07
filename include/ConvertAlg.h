@@ -60,24 +60,36 @@ namespace velalg {
 
 
 
+
+
 //--------------------------
 //--------------------------------
 //---------------------------------
-	class Convert {
+
+
+
+	class EngAlg : public ConvertAlg {
+
 	public:
 
-		Convert(ConvertAlg& convAlg);
+		EngAlg();
+		virtual void phraseBaseInit();
+		virtual std::string getNumeral( short unit);
 
-		void init();
-		std::string getNumeral(const short unit) const;
+		virtual	~EngAlg(){};
 
 
 	private:
-		ConvertAlg* convAlg;
-
+		bool powerWasWrite;
+		std::string definePower( const short power ); 
+		static const short maxGradeLevel = 3;
+	
 	};
 
+
+
 }
+
 
 
 

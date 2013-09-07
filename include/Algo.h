@@ -9,36 +9,42 @@
 
 namespace velalg {
 
-	struct Algo {
+	struct MatAlg {
 
-		Algo(const short ud, const short pd);
+		MatAlg(const short ud, const short pd);
 
 		const short unitDivisor;
 		const short powerDivisor;
 	
 	};
 
-	struct DecAlg : public Algo {
+	struct DecAlg : public MatAlg {
 		DecAlg();
 	};
 
-	struct OctAlg : public Algo {
+	struct OctAlg : public MatAlg {
 		OctAlg();
 	};
 
 //-----------------------------------------
 
-	class MatAlg {
+	class Algo {
 	public:
 
-		MatAlg(const long value, Algo& alg); 
+		Algo(const long value, MatAlg* alg); 
 		void init();
 
-		void setPowerAndUnit(); 
+		void incrPowerAndUnit(); 
+
+		inline bool isEnd() {
+			if ( (value == 0) && (unitValue == 0) )
+				return true;
+			return false;
+		};
 
 		inline bool isLessZero() const {
 			return minus;
-		}
+		};
 
 		inline short getPower() const {
 			return power;
@@ -56,7 +62,7 @@ namespace velalg {
 		short	powerDivCounter;
 		short	unitValue; //тут храниться часть числа обрубленная power divisoroм
 		long	value;
-		Algo*	alg;
+		MatAlg*	alg;
 
 	};
 

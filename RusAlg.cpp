@@ -101,7 +101,7 @@ namespace velalg {
 				break;
 
 			case 1:
-				if (value == 1) {
+				if ( (value == 1) && ( memCell != 0 ) ) {
 
 					returnedString = *( ( ( vvIt + 1 )->begin() ) + memCell - 1);
 					returnedString += definePower( MORE_AS_FOUR, powerCounter );
@@ -193,6 +193,12 @@ namespace velalg {
 		} 
 
 		return *( ( ( vvItPow + power ) -> begin() ) + grammarCase ); 
+	
+	}
+
+	std::string RusAlg::finalize ( bool isLessZero ) {
+
+		return "";
 	
 	}
 

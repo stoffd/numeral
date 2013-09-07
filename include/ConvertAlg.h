@@ -13,6 +13,7 @@ namespace velalg {
 	public:
 		virtual void phraseBaseInit() =0;
 		virtual std::string getNumeral( const short unit) =0;
+		virtual std::string finalize( bool isLessZero ) =0;
 
 
 	protected:
@@ -43,8 +44,8 @@ namespace velalg {
 
 		RusAlg();
 		virtual void phraseBaseInit();
-
 		virtual std::string getNumeral( short unit);
+		virtual std::string finalize( bool isLessZero );
 
 		virtual	~RusAlg(){};
 
@@ -75,6 +76,7 @@ namespace velalg {
 		EngAlg();
 		virtual void phraseBaseInit();
 		virtual std::string getNumeral( short unit);
+		virtual std::string finalize( bool isLessZero );
 
 		virtual	~EngAlg(){};
 

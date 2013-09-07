@@ -1,12 +1,14 @@
 CC=g++
 PROGRAM_NAME=numeral
 
-$(PROGRAM_NAME): MatAlg.o EngAlg.o RusAlg.o Convert.o  main.o  
+$(PROGRAM_NAME): Numeral.o Algo.o EngAlg.o RusAlg.o Convert.o  main.o  
 	$(CC) -o $@ $^ -L/usr/lib/gtest -lpthread  -lgtest
 
 
+Numeral.o:  Numeral.cpp
+	$(CC) -c -g $^
 
-MatAlg.o: MatAlg.cpp 
+Algo.o: Algo.cpp 
 	$(CC) -c -g $^
 
 

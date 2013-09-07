@@ -94,7 +94,7 @@ namespace velalg {
 				break;
 
 			case 1:
-				if (value == 1) {
+				if ( (value == 1) && ( memCell1 != 0 ) ) {
 
 					returnedString = *( ( ( vvIt + 1 )->begin() ) + memCell1 - 1);
 					returnedString += definePower(powerCounter); 
@@ -169,7 +169,22 @@ namespace velalg {
 	
 	}
 
+	std::string EngAlg::finalize ( bool isLessZero ) {
 
+		if ( ( powerCounter == 0 ) && (memCell1 == 0) && (memCell2 == 0) )
+			return "zero ";
+
+		std::string tempStr = "";
+
+		if ( isLessZero ) {
+			tempStr += "minus ";
+		}
+		
+		//tempStr += this->getNumeral(0);
+
+		return tempStr;
+	
+	}
 
 }
 

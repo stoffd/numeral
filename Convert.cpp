@@ -6,8 +6,8 @@ namespace velalg {
 
 
 
-	Convert::Convert(ConvertAlg& convAlg) {
-		this->convAlg = &convAlg;
+	Convert::Convert(ConvertAlg* convAlg) {
+		this->convAlg = convAlg;
 		init();
 	}
 
@@ -19,6 +19,10 @@ namespace velalg {
 
 	std::string Convert::getNumeral(const short unit) const{
 		return convAlg->getNumeral(unit);
+	}
+
+	std::string Convert::finalize( bool isLessZero ) {
+		return convAlg->finalize( isLessZero );
 	}
 
 
@@ -35,7 +39,7 @@ TEST( ConvertAlgTest, millionEng) {
 	std::string tempStr;
 
 	std::auto_ptr<velalg::ConvertAlg> alEng (new velalg::EngAlg() );
-	velalg::Convert cnvrt (*alEng.get() );
+	velalg::Convert cnvrt (alEng.get() );
 	
 
 	tempStr = cnvrt.getNumeral(0); 
@@ -78,7 +82,7 @@ TEST( ConvertAlgTest, hundredAndOnceEng) {
 	std::string tempStr;
 
 	std::auto_ptr<velalg::ConvertAlg> alEng (new velalg::EngAlg() );
-	velalg::Convert cnvrt (*alEng.get() );
+	velalg::Convert cnvrt (alEng.get() );
 	
 
 	tempStr = cnvrt.getNumeral(2); 
@@ -100,7 +104,7 @@ TEST( ConvertAlgTest, hundredAndDecEng) {
 	std::string tempStr;
 
 	std::auto_ptr<velalg::ConvertAlg> alEng (new velalg::EngAlg() );
-	velalg::Convert cnvrt (*alEng.get() );
+	velalg::Convert cnvrt (alEng.get() );
 	
 
 	tempStr = cnvrt.getNumeral(0); 
@@ -124,7 +128,7 @@ TEST( ConvertAlgTest, singleEng) {
 	std::string tempStr;
 
 	std::auto_ptr<velalg::ConvertAlg> alEng (new velalg::EngAlg() );
-	velalg::Convert cnvrt (*alEng.get() );
+	velalg::Convert cnvrt (alEng.get() );
 	
 
 	tempStr = cnvrt.getNumeral(2); 
@@ -145,7 +149,7 @@ TEST( ConvertAlgTest, xteenEng) {
 	std::string tempStr;
 
 	std::auto_ptr<velalg::ConvertAlg> alEng (new velalg::EngAlg() );
-	velalg::Convert cnvrt (*alEng.get() );
+	velalg::Convert cnvrt (alEng.get() );
 	
 
 	tempStr = cnvrt.getNumeral(3); 
@@ -165,7 +169,7 @@ TEST( ConvertAlgTest, decWithOnceEng) {
 	std::string tempStr;
 
 	std::auto_ptr<velalg::ConvertAlg> alEng (new velalg::EngAlg() );
-	velalg::Convert cnvrt (*alEng.get() );
+	velalg::Convert cnvrt (alEng.get() );
 	
 
 	tempStr = cnvrt.getNumeral(7); 
@@ -185,7 +189,7 @@ TEST( ConvertAlgTest, decWithEng) {
 	std::string tempStr;
 
 	std::auto_ptr<velalg::ConvertAlg> alEng (new velalg::EngAlg() );
-	velalg::Convert cnvrt (*alEng.get() );
+	velalg::Convert cnvrt (alEng.get() );
 	
 
 	tempStr = cnvrt.getNumeral(0); 
@@ -208,7 +212,7 @@ TEST( ConvertAlgTest, hundredEng) {
 	std::string tempStr;
 
 	std::auto_ptr<velalg::ConvertAlg> alEng (new velalg::EngAlg() );
-	velalg::Convert cnvrt (*alEng.get() );
+	velalg::Convert cnvrt (alEng.get() );
 	
 
 	tempStr = cnvrt.getNumeral(7); 
@@ -234,7 +238,7 @@ TEST( ConvertAlgTest, million ) {
 	std::string tempStr;
 
 	std::auto_ptr<velalg::ConvertAlg> alRu (new velalg::RusAlg() );
-	velalg::Convert cnvrt (*alRu.get() );
+	velalg::Convert cnvrt (alRu.get() );
 	
 
 	tempStr = cnvrt.getNumeral(1); 
@@ -303,7 +307,7 @@ TEST( ConvertAlgTest, hundred ) {
 	std::string tempStr;
 
 	std::auto_ptr<velalg::ConvertAlg> alRu (new velalg::RusAlg() );
-	velalg::Convert cnvrt (*alRu.get() );
+	velalg::Convert cnvrt (alRu.get() );
 	
 
 	tempStr = cnvrt.getNumeral(1); 
@@ -335,7 +339,7 @@ TEST( ConvertAlgTest, minTriplet ) {
 	std::string tempStr;
 
 	std::auto_ptr<velalg::ConvertAlg> alRu (new velalg::RusAlg() );
-	velalg::Convert cnvrt (*alRu.get() );
+	velalg::Convert cnvrt (alRu.get() );
 	
 
 	tempStr = cnvrt.getNumeral(1); 
@@ -360,7 +364,7 @@ TEST( ConvertAlgTest, maxTriplet ) {
 	std::string tempStr;
 
 	std::auto_ptr<velalg::ConvertAlg> alRu (new velalg::RusAlg() );
-	velalg::Convert cnvrt (*alRu.get() );
+	velalg::Convert cnvrt (alRu.get() );
 	
 
 	tempStr = cnvrt.getNumeral(9); 
@@ -385,7 +389,7 @@ TEST( ConvertAlgTest, single) {
 	std::string tempStr;
 
 	std::auto_ptr<velalg::ConvertAlg> alRu (new velalg::RusAlg() );
-	velalg::Convert cnvrt (*alRu.get() );
+	velalg::Convert cnvrt (alRu.get() );
 	
 
 	tempStr = cnvrt.getNumeral(2); 
@@ -408,7 +412,7 @@ TEST( ConvertAlgTest, hundredNdDecs ) {
 	std::string tempStr;
 
 	std::auto_ptr<velalg::ConvertAlg> alRu (new velalg::RusAlg() );
-	velalg::Convert cnvrt (*alRu.get() );
+	velalg::Convert cnvrt (alRu.get() );
 	
 
 	tempStr = cnvrt.getNumeral(0); 
@@ -434,7 +438,7 @@ TEST( ConvertAlgTest, xteen) {
 	std::string tempStr;
 
 	std::auto_ptr<velalg::ConvertAlg> alRu (new velalg::RusAlg() );
-	velalg::Convert cnvrt (*alRu.get() );
+	velalg::Convert cnvrt (alRu.get() );
 	
 	tempStr = cnvrt.getNumeral(7); 
 	//std::cout<<tempStr<<std::endl;
@@ -452,7 +456,7 @@ TEST( ConvertAlgTest, zeroInTheMiddle103) {
 	std::string tempStr;
 
 	std::auto_ptr<velalg::ConvertAlg> alRu (new velalg::RusAlg() );
-	velalg::Convert cnvrt (*alRu.get() );
+	velalg::Convert cnvrt (alRu.get() );
 
 	tempStr = cnvrt.getNumeral(3); 
 	//std::cout<<tempStr<<std::endl;
@@ -475,7 +479,7 @@ TEST( ConvertAlgTest, fullTriplet) {
 	std::string tempStr;
 
 	std::auto_ptr<velalg::ConvertAlg> alRu (new velalg::RusAlg() );
-	velalg::Convert cnvrt (*alRu.get() );
+	velalg::Convert cnvrt (alRu.get() );
 	
 
 	tempStr = cnvrt.getNumeral(4); 
@@ -498,7 +502,7 @@ TEST( ConvertAlgTest, twoZeroes300) {
 	std::string tempStr;
 
 	std::auto_ptr<velalg::ConvertAlg> alRu (new velalg::RusAlg() );
-	velalg::Convert cnvrt (*alRu.get() );
+	velalg::Convert cnvrt (alRu.get() );
 	
 
 	tempStr = cnvrt.getNumeral(0); 
@@ -524,7 +528,7 @@ TEST( ConvertAlgTest, decs) {
 	std::string tempStr;
 
 	std::auto_ptr<velalg::ConvertAlg> alRu (new velalg::RusAlg() );
-	velalg::Convert cnvrt (*alRu.get() );
+	velalg::Convert cnvrt (alRu.get() );
 	
 
 	tempStr = cnvrt.getNumeral(0); 

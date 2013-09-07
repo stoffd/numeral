@@ -11,10 +11,12 @@ namespace velalg {
 	class Convert {
 	public:
 
-		Convert(ConvertAlg& convAlg);
+		Convert(ConvertAlg* convAlg);
 
 		void init();
 		std::string getNumeral(const short unit) const;
+		std::string finalize(bool isLessZero);
+
 
 
 	private:

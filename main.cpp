@@ -4,6 +4,9 @@
 #include  "./include/Numeral.h"
 
 #include "./tests/MainTestPackEng.hpp"
+#include "./tests/AlgoTest.hpp"
+#include "./tests/ConvertTest.hpp"
+#include "./tests/MainTestPackRus.hpp"
 
 
 

@@ -71,6 +71,7 @@ namespace velalg {
 	EngAlg::EngAlg(){
 		//cell.isFree = true;
 		powerWasWrite = false;
+		potentialAnd = false;
 		memCell1 = 0;
 		memCell2 = 0;
 		unitCounter = 0;
@@ -83,9 +84,17 @@ namespace velalg {
 
 
 		std::string returnedString ("");
+		std::string appendString ("");
 		
 
 		D2String::iterator vvIt = unList[MASCUL].begin();
+
+
+		if ( ( value!=0 ) && ( potentialAnd) ) {
+			appendString += "and ";
+			potentialAnd = false;
+		}
+
 
 		switch (unitCounter) {
 
@@ -96,27 +105,33 @@ namespace velalg {
 			case 1:
 				if ( (value == 1) && ( memCell1 != 0 ) ) {
 
-					returnedString = *( ( ( vvIt + 1 )->begin() ) + memCell1 - 1);
+					returnedString += *( ( ( vvIt + 1 )->begin() ) + memCell1 - 1);
 					returnedString += definePower(powerCounter); 
 
 				} else if ( (value == 0) && ( memCell1 != 0 ) ){
 
-					returnedString = *( ( vvIt->begin() ) + memCell1 - 1 );
+					returnedString += *( ( vvIt->begin() ) + memCell1 - 1 );
 					returnedString += definePower(powerCounter); 
+					potentialAnd = true;
 
 				} else if ( ( value != 0 ) && ( memCell1 == 0 ) ) {
 
 					returnedString += *( ( ( vvIt + 2 )->begin() ) + value - 1 );
 					returnedString.replace( returnedString.find("-"), 1," ");
 					returnedString += definePower(powerCounter); 
+					if ( !powerCounter )
+						potentialAnd = true;
 
 				} else if ( ( value != 0 ) && ( memCell1 != 0 ) ) {
 
-					returnedString =  *( ( ( vvIt + 2 )->begin() ) + value - 1 );
+					returnedString +=  *( ( ( vvIt + 2 )->begin() ) + value - 1 );
 					returnedString+=  *( ( vvIt->begin() ) + memCell1 - 1 );
 					returnedString += definePower(powerCounter); 
 
 				}
+
+
+
 					memCell2 = value;
 
 				break;
@@ -124,15 +139,27 @@ namespace velalg {
 			case 2:
 				if  (value == 0)  {
 					returnedString = "";
-				} else if ( (value != 0) && ( ( memCell1 == 0 ) || ( memCell2 ==0 ) ) ) {
-					returnedString = *( ( ( vvIt + 3 )->begin() ) + value - 1);
-					if ( powerWasWrite && ( powerCounter == 0 ) )
-						returnedString += "and ";
+				} else if ( (value != 0) /*&& ( ( memCell1 == 0 ) || ( memCell2 ==0 ) )*/ ) {
+					returnedString += *( ( ( vvIt + 3 )->begin() ) + value - 1);
+					//if ( potentialAnd )
+						//returnedString += "and ";
+
+					//if ( powerWasWrite && ( powerCounter == 0 ) )
+						//returnedString += "and ";
+					//if ( powerWasWrite &&   powerCounter  &&  !memCell2 )
+						//returnedString += "and ";
 				} else {
-					returnedString = *( ( ( vvIt + 3 )->begin() ) + value - 1);
+					returnedString += *( ( ( vvIt + 3 )->begin() ) + value - 1);
 					if ( !powerWasWrite )
 						returnedString += definePower(powerCounter); 
 				}
+
+				//if ( ( memCell1 == 0 ) || ( memCell2 ==0 ) ) {
+					//if ( powerWasWrite && ( powerCounter == 0 ) )
+						//returnedString += "and ";
+					//if ( powerWasWrite &&   powerCounter  &&  !memCell2 )
+						//returnedString += "and ";
+				//}
 
 				break;
 			
@@ -146,6 +173,7 @@ namespace velalg {
 		unitCounter++;
 
 		if ( unitCounter == maxGradeLevel ) {
+	
 
 			powerWasWrite = false; 
 			powerCounter++;
@@ -155,6 +183,7 @@ namespace velalg {
 		}
 
 
+		returnedString += appendString;
 
 		return returnedString; 
 	}
@@ -170,6 +199,10 @@ namespace velalg {
 	}
 
 	std::string EngAlg::finalize ( bool isLessZero ) {
+
+
+		//returnedString += *( ( ( vvIt + 2 )->begin() ) + value - 1 );
+		//returnedString.replace( returnedString.find("-"), 1," ");
 
 		if ( ( powerCounter == 0 ) && (memCell1 == 0) && (memCell2 == 0) )
 			return "zero ";

@@ -78,7 +78,8 @@ namespace velalg {
 	RusAlg::RusAlg(){
 		//cell.isFree = true;
 		powerWasWrite = false;
-		memCell = 0;
+		memCell1 = 0;
+		memCell2 = 0;
 		unitCounter = 0;
 		powerCounter = 0;
 	};
@@ -97,40 +98,40 @@ namespace velalg {
 		switch (unitCounter) {
 
 			case 0:
-				memCell = value;
+				memCell1 = value;
 				break;
 
 			case 1:
-				if ( (value == 1) && ( memCell != 0 ) ) {
+				if ( (value == 1) && ( memCell1 != 0 ) ) {
 
-					returnedString = *( ( ( vvIt + 1 )->begin() ) + memCell - 1);
+					returnedString = *( ( ( vvIt + 1 )->begin() ) + memCell1 - 1);
 					returnedString += definePower( MORE_AS_FOUR, powerCounter );
 
-				} else if ( (value == 0) && ( memCell != 0 ) ){
+				} else if ( (value == 0) && ( memCell1 != 0 ) ){
 
-					returnedString = *( ( vvIt->begin() ) + memCell - 1 );
-					returnedString += definePower( memCell, powerCounter );
+					returnedString = *( ( vvIt->begin() ) + memCell1 - 1 );
+					returnedString += definePower( memCell1, powerCounter );
 
-				} else if ( ( value != 0 ) && ( memCell == 0 ) ) {
+				} else if ( ( value != 0 ) && ( memCell1 == 0 ) ) {
 
 					returnedString = *( ( ( vvIt + 2 )->begin() ) + value - 1 );
 					returnedString += definePower( MORE_AS_FOUR, powerCounter );
 
-				} else if ( ( value != 0 ) && ( memCell != 0 ) ) {
+				} else if ( ( value != 0 ) && ( memCell1 != 0 ) ) {
 
 					returnedString =  *( ( ( vvIt + 2 )->begin() ) + value - 1 );
-					returnedString+=  *( ( vvIt->begin() ) + memCell - 1 );
-					returnedString += definePower( memCell, powerCounter );
+					returnedString+=  *( ( vvIt->begin() ) + memCell1 - 1 );
+					returnedString += definePower( memCell1, powerCounter );
 
 				}
-					memCell = value;
+					memCell2 = value; //or memCell1?
 
 				break;
 
 			case 2:
 				if ( (value == 0) )/*&& ( memCell != 0 ) )*/ {
 					//returnedString = *( ( ( vvIt + 2 )->begin() ) + memCell - 1);
-				} else if ( (value == 0) && ( memCell == 0 ) ) {
+				} else if ( (value == 0) && ( memCell2 == 0 ) ) {
 					returnedString = "";
 				} else {
 					returnedString = *( ( ( vvIt + 3 )->begin() ) + value - 1);
@@ -154,7 +155,7 @@ namespace velalg {
 			powerWasWrite = false; 
 			powerCounter++;
 			unitCounter = 0;
-			memCell = 0;
+			memCell2 = 0;
 		}
 
 
@@ -198,7 +199,18 @@ namespace velalg {
 
 	std::string RusAlg::finalize ( bool isLessZero ) {
 
-		return "";
+
+		if ( ( powerCounter == 0 ) && (memCell1 == 0) && (memCell2 == 0) )
+			return "ноль ";
+
+		std::string tempStr = "";
+
+		if ( isLessZero ) {
+			tempStr += "минус ";
+		}
+		
+
+		return tempStr;
 	
 	}
 

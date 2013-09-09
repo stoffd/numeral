@@ -44,7 +44,7 @@ namespace velalg {
 
 		RusAlg();
 		virtual void phraseBaseInit();
-		virtual std::string getNumeral( short unit);
+		virtual std::string getNumeral( short unit); 
 		virtual std::string finalize( bool isLessZero );
 
 		virtual	~RusAlg(){};

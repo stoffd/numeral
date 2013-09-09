@@ -7,6 +7,32 @@
 //---------------------------------
 
 
+TEST( ConvertAlgTest, outOfRange1) {
+
+	std::string tempStr;
+
+	std::auto_ptr<velalg::ConvertAlg> alEng (new velalg::EngAlg() );
+	velalg::Convert cnvrt (alEng.get() );
+	
+
+	try {
+
+		tempStr = cnvrt.getNumeral(10); 
+		EXPECT_STREQ(tempStr.c_str(),"");
+
+	} catch (std::out_of_range& our) {
+
+		ASSERT_TRUE(true);
+		return;
+	
+	}
+
+	ASSERT_TRUE(false);
+
+}
+
+
+
 TEST( ConvertAlgTest, millionEng) {
 
 	std::string tempStr;

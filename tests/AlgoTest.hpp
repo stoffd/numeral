@@ -2,6 +2,83 @@
 #define ALGO_TEST_PACK_HPP
 
 
+TEST( MatAlgTest, testWrongGreat) {
+
+	try {
+	std::auto_ptr<velalg::MatAlg> wrng (new velalg::WrongGreaterAlg() );
+	velalg::Algo maWrng (0, wrng.get() );
+
+	} catch (std::invalid_argument& ia) {
+		ASSERT_TRUE(true);
+		return;
+	}
+	ASSERT_TRUE(false);
+
+}
+
+
+
+TEST( MatAlgTest, testWrongZeroAlg) {
+
+	try {
+	std::auto_ptr<velalg::MatAlg> wrng (new velalg::WrongZeroAlg() );
+	velalg::Algo maWrng (0, wrng.get() );
+
+	} catch (std::invalid_argument& ia) {
+		ASSERT_TRUE(true);
+		return;
+	}
+	ASSERT_TRUE(false);
+
+}
+
+
+TEST( MatAlgTest, testRightDivisibleByUnitDec) {
+
+	try {
+	std::auto_ptr<velalg::MatAlg> alDec (new velalg::DecAlg() );
+	velalg::Algo maDec (0, alDec.get() );
+
+	} catch (std::invalid_argument& ia) {
+		ASSERT_TRUE(false);
+		return;
+	}
+	ASSERT_TRUE(true);
+
+}
+
+
+TEST( MatAlgTest, testRightDivisibleByUnitOct) {
+
+	try {
+	std::auto_ptr<velalg::MatAlg> alOct (new velalg::OctAlg() );
+	velalg::Algo maOct (0, alOct.get() );
+
+	} catch (std::invalid_argument& ia) {
+		ASSERT_TRUE(false);
+		return;
+	}
+	ASSERT_TRUE(true);
+
+}
+
+
+
+TEST( MatAlgTest, testErrorDivisibleByUnit) {
+
+	try {
+		std::auto_ptr<velalg::MatAlg> alWrong (new velalg::WrongAlg() );
+	velalg::Algo maWrong (100, alWrong.get() );
+	} catch (std::invalid_argument& ia) {
+		ASSERT_TRUE(true);
+		return;
+	}
+	ASSERT_TRUE(false);
+
+}
+
+
+
 TEST( MatAlgTest, zeroTest ) {
 
 	std::auto_ptr<velalg::MatAlg> alDec (new velalg::DecAlg() );
@@ -30,7 +107,7 @@ TEST( MatAlgTest, zeroTest ) {
 
 
 
-TEST( MatAlgTest, test1) {
+TEST( MatAlgTest, testBase) {
 	std::auto_ptr<velalg::MatAlg> alDec (new velalg::DecAlg() );
 	velalg::Algo maDec (1, alDec.get() );
 	maDec.incrPowerAndUnit();
@@ -73,10 +150,12 @@ TEST( MatAlgTest, test_is_less_zero) {
 	maDec.incrPowerAndUnit();
 	EXPECT_EQ( maDec.getUnit(), 1);
 	EXPECT_EQ( maDec.getPower(), 1);
+}
 
 
 
-//2322
+TEST( MatAlgTest, test_is_less_zero_oct_2322) {
+
 	std::auto_ptr<velalg::MatAlg> alOct (new velalg::OctAlg() );
 	velalg::Algo maOct (-1234, alOct.get() );
 
@@ -101,12 +180,9 @@ TEST( MatAlgTest, test_is_less_zero) {
 }
 
 
-TEST( MatAlgTest, test123000) {
+TEST( MatAlgTest, testRightTripsZero) {
 	std::auto_ptr<velalg::MatAlg> alDec (new velalg::DecAlg() );
 	velalg::Algo maDec (123000, alDec.get() );
-
-
-
 
 	maDec.incrPowerAndUnit();
 	EXPECT_EQ( maDec.getUnit(), 0);
@@ -134,7 +210,7 @@ TEST( MatAlgTest, test123000) {
 
 }
 
-TEST( MatAlgTest, test123102) {
+TEST( MatAlgTest, testZeroInTheMiddle) {
 	std::auto_ptr<velalg::MatAlg> alDec (new velalg::DecAlg() );
 	velalg::Algo maDec (123102, alDec.get() );
 
@@ -172,7 +248,7 @@ TEST( MatAlgTest, test123102) {
 
 
 
-TEST( MatAlgTest, test4294967295) {
+TEST( MatAlgTest, testMaxRange) {
 
 	std::auto_ptr<velalg::MatAlg> alDec (new velalg::DecAlg() );
 	velalg::Algo maDec (2147483647, alDec.get() );
@@ -207,8 +283,9 @@ TEST( MatAlgTest, test4294967295) {
 	maDec.incrPowerAndUnit();
 	EXPECT_EQ( maDec.getUnit(), 2);
 	EXPECT_EQ( maDec.getPower(), 3);
+}
 
-//17777777777 - for oct
+TEST( MatAlgTest, testMaxRangeOct_17777777777 ) {
 
 	std::auto_ptr<velalg::MatAlg> alOct (new velalg::OctAlg() );
 	velalg::Algo maOct (2147483647, alOct.get() );
@@ -250,5 +327,8 @@ TEST( MatAlgTest, test4294967295) {
 
 
 }
+
+
+
 
 #endif//ALGO_TEST_PACK_HPP

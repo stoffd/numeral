@@ -3,7 +3,7 @@
 
 
 namespace velalg {
-	std::string Numeral::operator() ( long val,  ConvertAlg* convertAlg, MatAlg* matAlg ) { 
+	std::string Numeral::operator() ( long val,  ConvertAlg* convertAlg, MatAlg* matAlg ) try { 
 
 		Algo algo( val, matAlg );
 		Convert convert( convertAlg );
@@ -47,5 +47,8 @@ namespace velalg {
 
 		return resultString;
 	
+	} catch (std::exception& ex) {
+		std::cerr << "Failure! " << ex.what() <<std::endl; 
+		exit (-1);
 	};
 }

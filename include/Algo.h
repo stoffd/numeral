@@ -26,12 +26,29 @@ namespace velalg {
 		OctAlg();
 	};
 
+
+#ifdef VELALG_TEST
+	struct WrongAlg : public MatAlg {
+		WrongAlg();
+	};
+
+
+	struct WrongZeroAlg : public MatAlg {
+		WrongZeroAlg();
+	};
+
+
+	struct WrongGreaterAlg : public MatAlg {
+		WrongGreaterAlg();
+	};
+#endif
+
 //-----------------------------------------
 
 	class Algo {
 	public:
 
-		Algo(const long value, MatAlg* alg); 
+		Algo(const long value, MatAlg* alg) throw (std::invalid_argument); 
 		void init();
 
 		void incrPowerAndUnit(); 

@@ -80,7 +80,9 @@ namespace velalg {
 
 
 
-	std::string EngAlg::getNumeral( const short value ) {
+	std::string EngAlg::getNumeral( const short value )  {
+
+
 
 
 		std::string returnedString ("");

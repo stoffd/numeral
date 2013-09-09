@@ -3,10 +3,12 @@
 #include <map>
 #include  "./include/Numeral.h"
 
-#include "./tests/MainTestPackEng.hpp"
-#include "./tests/AlgoTest.hpp"
-#include "./tests/ConvertTest.hpp"
-#include "./tests/MainTestPackRus.hpp"
+#ifdef VELALG_TEST
+	#include "./tests/AlgoTest.hpp"
+	#include "./tests/MainTestPackEng.hpp"
+	#include "./tests/ConvertTest.hpp"
+	#include "./tests/MainTestPackRus.hpp"
+#endif
 
 
 

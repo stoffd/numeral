@@ -17,7 +17,12 @@ namespace velalg {
 	}
 
 
-	std::string Convert::getNumeral(const short unit) const{
+	std::string Convert::getNumeral(const short unit) const throw (std::out_of_range) {
+
+		if ( (unit < 0) || (unit > 9) )
+			throw std::out_of_range( "out of range. Diapason will be 0..9" );
+
+
 		return convAlg->getNumeral(unit);
 	}
 

@@ -20,10 +20,40 @@ namespace velalg {
 	OctAlg::OctAlg(): 
 		MatAlg(8,512) {};
 
+#ifdef VELALG_TEST
+	WrongAlg::WrongAlg(): 
+		MatAlg(8,592) {};
+
+	WrongZeroAlg::WrongZeroAlg(): 
+		MatAlg(0,0) {};
+
+
+	WrongGreaterAlg::WrongGreaterAlg(): 
+		MatAlg(512,8) {};
+
+#endif
+
 
 //-------------Algo---------------
 
-	Algo::Algo(const long value, MatAlg* alg) {
+	Algo::Algo(const long value, MatAlg* alg)  throw (std::invalid_argument) {
+			
+			short rate = alg->unitDivisor;
+
+			if ( !(alg->unitDivisor) )
+					throw std::invalid_argument( "unit divisor is zero" );
+
+			if ( !(alg->powerDivisor) )
+					throw std::invalid_argument( "power divisor is zero" );
+
+
+			while ( rate != alg->powerDivisor ) {
+				if  ( rate > alg->powerDivisor )
+					throw std::invalid_argument( "a power must be divisible by unit" );
+
+				rate*=alg->unitDivisor;
+			}
+
 			this->alg = alg;
 			power = 0;
 			unit = 0;

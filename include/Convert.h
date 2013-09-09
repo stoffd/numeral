@@ -14,7 +14,7 @@ namespace velalg {
 		Convert(ConvertAlg* convAlg);
 
 		void init();
-		std::string getNumeral(const short unit) const;
+		std::string getNumeral(const short unit) const throw (std::out_of_range);
 		std::string finalize(bool isLessZero);
 
 

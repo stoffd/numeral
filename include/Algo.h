@@ -54,8 +54,10 @@ namespace velalg {
 		void incrPowerAndUnit(); 
 
 		inline bool isEnd() {
-			if ( (value == 0) && (unitValue == 0) )
+			if ( (value == 0) && (unitValue == 0) ) {
+				if ( unitDivCounter % rateCount == 0 ) 
 				return true;
+			}
 			return false;
 		};
 
@@ -72,6 +74,7 @@ namespace velalg {
 		}; 
 
 	private:
+		short	rateCount;
 		bool	minus;
 		short	power;
 		short	unit;

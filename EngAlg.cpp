@@ -9,7 +9,7 @@ namespace velalg {
 		std::vector<std::string> v1;
 		std::vector<std::string>::iterator it;
 
-		D2String::iterator nlIt;
+		NumWordsArr::iterator nlIt;
 
 
 		v1.push_back("");
@@ -32,8 +32,8 @@ namespace velalg {
 
 //--------------------------
 
-		D2String 			d2vMasc;
-		D2String::iterator d2itMasc;
+		NumWordsArr 			d2vMasc;
+		NumWordsArr::iterator d2itMasc;
 
 		v1.push_back("one "); v1.push_back("two "); v1.push_back("three ");
 		v1.push_back("four "); v1.push_back("five "); v1.push_back("six ");
@@ -89,7 +89,7 @@ namespace velalg {
 		std::string appendString ("");
 		
 
-		D2String::iterator vvIt = unList[MASCUL].begin();
+		NumWordsArr::iterator vvIt = unList[MASCUL].begin();
 
 
 		if ( ( value!=0 ) && ( potentialAnd) ) {
@@ -193,7 +193,7 @@ namespace velalg {
 
 	std::string EngAlg::definePower( const short power ) {
 
-		D2String::iterator vvItPow = powList.begin();
+		NumWordsArr::iterator vvItPow = powList.begin();
 		powerWasWrite = true; 
 
 		return *( ( ( vvItPow + power ) -> begin() ) ); 

@@ -10,8 +10,8 @@ namespace velalg {
 	enum genders { MASCUL, FEM };
 	enum power_grades { once=0, thous, mill, bill, trill, quad, quint };
 
-	typedef std::vector< std::vector <std::string> > D2String;
-	typedef std::map <genders, D2String>  UnitNumeralList;
+	typedef std::vector< std::vector <std::string> > NumWordsArr;
+	typedef std::map <genders, NumWordsArr>  UnitNumeralList;
 
 	//struct PowerNumeralStruct{
 		//genders grade_gender;

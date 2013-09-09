@@ -27,8 +27,8 @@ namespace velalg {
 			
 		}
 
-		if ( count % 3  == 1 )
-			tempV.push_back( convert.getNumeral( 0 ) );
+		//if ( count % 3  == 1 )
+			//tempV.push_back( convert.getNumeral( 0 ) );
 			//resultString += convert.getNumeral( 0 );
 
 

@@ -20,7 +20,7 @@ namespace velalg {
 
 
 		//PowerNumeralList 	powList;
-		D2String			powList;
+		NumWordsArr			powList;
 		UnitNumeralList		unList;
 
 		short unitCounter;

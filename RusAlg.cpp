@@ -7,7 +7,7 @@ namespace velalg {
 		std::vector<std::string> v1;
 		std::vector<std::string>::iterator it;
 
-		D2String::iterator nlIt;
+		NumWordsArr::iterator nlIt;
 
 
 		v1.push_back(""); v1.push_back(""); v1.push_back("");
@@ -29,8 +29,8 @@ namespace velalg {
 
 
 //--------------------------
-		D2String 			d2vMasc, d2vFem;
-		D2String::iterator d2itMasc, d2itFem;
+		NumWordsArr 			d2vMasc, d2vFem;
+		NumWordsArr::iterator d2itMasc, d2itFem;
 
 		v1.push_back("один "); v1.push_back("два "); v1.push_back("три ");
 		v1.push_back("четыре "); v1.push_back("пять "); v1.push_back("шесть ");
@@ -93,7 +93,7 @@ namespace velalg {
 		
 
 		genders gend = (powerCounter == 1) ? FEM : MASCUL;
-		D2String::iterator vvIt = unList[gend].begin();
+		NumWordsArr::iterator vvIt = unList[gend].begin();
 
 		switch (unitCounter) {
 
@@ -167,7 +167,7 @@ namespace velalg {
 
 	std::string RusAlg::definePower( const short value, const short power) {
 
-		D2String::iterator vvItPow = powList.begin();
+		NumWordsArr::iterator vvItPow = powList.begin();
 		short grammarCase=0;
 		powerWasWrite = true; 
 

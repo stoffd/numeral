@@ -39,6 +39,7 @@ namespace velalg {
 	Algo::Algo(const long value, MatAlg* alg)  throw (std::invalid_argument) {
 			
 			short rate = alg->unitDivisor;
+			rateCount = 0;
 
 			if ( !(alg->unitDivisor) )
 					throw std::invalid_argument( "unit divisor is zero" );
@@ -52,6 +53,7 @@ namespace velalg {
 					throw std::invalid_argument( "a power must be divisible by unit" );
 
 				rate*=alg->unitDivisor;
+				rateCount++;
 			}
 
 			this->alg = alg;
@@ -82,6 +84,7 @@ namespace velalg {
 		if ( (value == 0) && (unitValue == 0) ) {
 			power=0;
 			unit=0;
+			unitDivCounter++;
 			return;
 		}
 
